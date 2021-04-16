@@ -1,0 +1,10 @@
+--> FOAM FATAL IO ERROR: 
+Unable to set reference cell for field p
+    Please supply either pRefCell or pRefPoint
+
+
+file: /home/edwardkgn/OpenFOAM/edwardkgn-6/run/settlingBed_06_modBCs/system/fvSolution.PIMPLE from line 88 to line 90.
+
+    From function bool Foam::setRefCell(const volScalarField&, const volScalarField&, const Foam::dictionary&, Foam::label&, Foam::scalar&, bool)
+    in file cfdTools/general/findRefCell/findRefCell.C at line 105.
+
