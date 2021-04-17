@@ -1,0 +1,116 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      phaseProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type    basicMultiphaseSystem;
+
+phases (particles water);
+
+referencePhase water;
+
+particles
+{
+    type          pureIsothermalPhaseModel;
+
+    diameterModel constant;
+    constantCoeffs
+    {
+        d               71.6e-6;
+    }
+
+    alphaMax        0.07;
+    residualAlpha   1e-6;
+}
+
+water
+{
+    type          pureIsothermalPhaseModel;
+
+    diameterModel constant;
+    constantCoeffs
+    {
+        d               1;
+    }
+
+    residualAlpha   0;
+}
+
+blending
+{
+    default
+    {
+        type            none;
+        continuousPhase water;
+    }
+}
+
+surfaceTension
+(
+    (water and particles)
+    {
+        type            constant;
+        sigma           0.073; // Based on water's surface tension
+    }
+);
+
+aspectRatio
+();
+
+interfaceCompression
+();
+
+drag
+(
+    (particles in water)
+    {
+        type            GidaspowErgunWenYu;
+        residualRe      1e-3;
+        swarmCorrection
+        {
+            type        none;
+        }
+    }
+);
+
+virtualMass
+(
+);
+
+heatTransfer
+(
+);
+
+phaseTransfer
+(
+);
+
+lift
+(
+);
+
+wallLubrication
+(
+);
+
+turbulentDispersion
+(
+);
+
+// Minimum allowable pressure
+pMin            10000;
+
+
+// ************************************************************************* //
